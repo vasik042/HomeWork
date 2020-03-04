@@ -5,8 +5,8 @@ CREATE DATABASE library;
 USE library;
 
 CREATE TABLE book(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	book_name varchar(120) not null,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    book_name varchar(120) not null,
     price decimal(6, 2) not null,
     description text default ("No description"),
     date_of_publication date not null default "2018-01-01",
@@ -15,8 +15,35 @@ CREATE TABLE book(
     category_id int  not null
 );
 
+CREATE TABLE costumer(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    costumer_name varchar(45) not null,
+    costumer_surname varchar(45) not null,
+    costumer_email varchar(50) not null,
+    costumer_age int(3) not null,
+    costumer_date_of_birth date not null
+);
+
+CREATE TABLE sales(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    book_id int,
+    copies_sold int
+);
+
+CREATE TABLE costumer_library(
+    costumer_id int not null,
+    book_id int not null
+);
+
+CREATE TABLE reviews(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    costumer_id int not null,
+    book_id int not null,
+    review longtext not null
+);
+
 CREATE TABLE author(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     author_name varchar(45) not null,
     author_surname varchar(45) not null,
     author_email varchar(50) not null,
@@ -44,6 +71,21 @@ references author(id);
 
 alter table book add foreign key(category_id)
 references category(id);
+
+alter table reviews add foreign key(costumer_id)
+references costumer(id);
+
+alter table reviews add foreign key(book_id)
+references book(id);
+
+alter table costumer_library add foreign key(book_id)
+references book(id);
+
+alter table costumer_library add foreign key(costumer_id)
+references costumer(id);
+
+alter table sales add foreign key(book_id)
+references book(id);
 
 
 INSERT INTO author(author_name, author_surname, author_email, author_age, author_date_of_birth, author_awards) 
