@@ -1,17 +1,12 @@
-import javax.persistence.*;
+package many_to_many;
+
 import java.util.HashSet;
 import java.util.Set;
 
-//@Embeddable
-//@Entity
-//@Table(name = "Cart")
+
 public class Cart {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-//    @Column(name = "name")
     private String name;
-//    @Column(name = "total")
     private int total;
 
     private Set<Item> items = new HashSet<>();

@@ -2,6 +2,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TimeZone;
 
+import many_to_many.Cart;
+import many_to_many.Item;
+import many_to_one.Costumer;
+import many_to_one.Purchase;
+import one_to_one.Human;
+import one_to_one.Life;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,6 +21,65 @@ public class Main {
 
         SessionFactory sessionFactory = configuration.buildSessionFactory();
 
+        //one-to-one
+//        oneToOneExample(sessionFactory);
+
+        //many-to-one
+        manyToOneExample(sessionFactory);
+
+        //many-to-many
+//        manyToManyExample(sessionFactory);
+    }
+
+    private static void manyToOneExample(SessionFactory sessionFactory) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Costumer costumer = new Costumer("Cos", "Tumer", "Costumer@gmail.com");
+
+        Purchase purchase1 = new Purchase("SomeProduct", 10, costumer);
+        Purchase purchase2 = new Purchase("OtherProduct", 11, costumer);
+        Purchase purchase3 = new Purchase("OneMoreProduct", 12, costumer);
+
+        session.persist(costumer);
+
+        session.persist(purchase1);
+        session.persist(purchase2);
+        session.persist(purchase3);
+
+        transaction.commit();
+        session.close();
+    }
+
+    public static void oneToOneExample(SessionFactory sessionFactory){
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Human human1 =new Human("001", "Alpha", 92);
+        Human human2 =new Human("032", "Beta", 52);
+        Human human3 =new Human("012", "1.0", 25);
+        Human human4 =new Human("002", "2.12", 12);
+
+        Life life1 = new Life(1, "useless", human1);
+        Life life2 = new Life(2, "useless", human2);
+        Life life3 = new Life(3, "useless", human3);
+        Life life4 = new Life(4, "useless", human4);
+
+        human1.setHumanLife(life1);
+        human2.setHumanLife(life2);
+        human3.setHumanLife(life3);
+        human4.setHumanLife(life4);
+
+        session.persist(human1);
+        session.persist(human2);
+        session.persist(human3);
+        session.persist(human4);
+
+        transaction.commit();
+        session.close();
+    }
+
+    public static void manyToManyExample(SessionFactory sessionFactory){
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
