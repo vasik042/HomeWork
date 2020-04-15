@@ -1,8 +1,10 @@
-package com.Spring.demo;
+package com.Spring.demo.Entities;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.Entity;
 
+@Entity
 public class Student {
     int id;
     String name;
