@@ -1,13 +1,29 @@
 package com.Spring.demo.Entities;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "university")
 public class University {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "university_id")
+    int id;
+    @Column
     private String name;
+    @Column
     private String address;
+    @Column (name="level_of_accreditation")
     private String levelOfAccreditation;
+
+    @OneToMany(mappedBy = "university")
     private List<Institute> institutes;
+
+    public University(){
+
+    }
 
     public University(String name, String address, String levelOfAccreditation) {
         this.name = name;
@@ -60,13 +76,11 @@ public class University {
         this.institutes = institutes;
     }
 
-    @Override
-    public String toString() {
-        return "University{" +
-                "name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", levelOfAccreditation='" + levelOfAccreditation + '\'' +
-                ", institutes=" + institutes +
-                '}';
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
