@@ -8,12 +8,13 @@
     <meta charset="utf-8">
 </head>
 <body>
-    <form action="/demo/create" method="post">
-         <label for="Name">Name:</label> <input type="text" id="name" name="name" value="${participant.name}">
-         <label for="Email">Email:</label> <input type="text" id="email" name="email" value="${participant.email}">
-         <label for="Level">Level:</label> <input type="text" id="level" name="level" value="${participant.level}">
-         <label for="Primary skill">Primary skill:</label> <input type="text" id="primarySkill" name="primarySkill" value="${participant.primarySkill}">
+    <form action="/demo/create" method="post" enctype="multipart/form-data">
+         <label for="Name">Name:</label> <input type="text" id="name" name="name" value="${student.name}">
+         <label for="Surname">Surname:</label> <input type="text" id="surname" name="surname" value="${student.surname}">
+         <label for="Age">Age:</label> <input  type="range" id="age" name="age" min="0" max="127" step="1" id="age" name="level" value="${student.age}">
+         <label for="Photo">Photo</label> <input id="photo" type="file" name="photo" value="">
         <input type="submit" value="create">
     </form>
+
 </body>
 </html>
